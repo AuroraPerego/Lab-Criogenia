@@ -30,8 +30,7 @@
 \subsection{Studio dell’apparecchio LDM9LP 
 Pigtailed Laser Mount}
 Modello: LDM9LP\\
-\href{https://www.thorlabs.com/drawings/105dda5333f7d133-D484029A-C3D8-22D9-A82C60BDE58EE5BA/LDM9LP-Manual.pdf}{Manuale e documentazione forniti da Thorlabs}\\
-%\href{Manuale.pdf}{Click here to open the file} non funziona
+\href{https://www.thorlabs.com/_sd.cfm?fileName=TTN027954-D02.pdf&partNumber=LDM9LP}{Manuale e documentazione forniti da Thorlabs}\\
 \href{https://www.thorlabs.com/newgrouppage9.cfm?objectgroup_id=4839&pn=LDM9LP#4839}{Informazioni generali fornite da Thorlabs}
 
 \subsection{Calcolo rate di fotoni}
@@ -73,4 +72,43 @@ Facciamo il calcolo per 10 fotoni al secondo:
 \end{itemize}
 L'attenuazione necessaria è quindi $1.76-(-148.86) = 150.62$
 L'attenuazione massima a disposizione è di $156$ e corrisponde a circa $3$ fotoni.
+
+\begin{section}{23 Novembre 2021}
+\subsection{Cose fatte a lezione}
+E' stato preparato il cavo che collegherà il diodo al tec. Per farlo, sono stati utilizzati nove fili di materiale conduttore, che sono stati saldati alla testa della "presa" che andrà poi a inserirsi nell'apparecchio contenente il diodo (usiamo l'ingresso LD connector e non il TEC). I fili sono stati poi etichettati seguendo lo schema in figura \ref{fig:pin}. In tabella \ref{tab:pinfunction} sono riportate le funzioni di ognuno dei pin. 
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.3]{pin_scheme.png}
+    \caption{Schema della numerazione dei pin del Laser Diode Connector}
+    \label{fig:pin}
+\end{figure}
+
+\begin{table}[htpb]
+    \centering
+    \begin{tabular}{c|l}
+        \# Pin &	Signal \\
+        \hline
+        1 &	Interlock and Status Pin (LDC Specific) \\
+        2 &	Photodiode Cathode \\
+        3 &	Laser Ground (Case) \\
+        4 &	Photodiode Anode \\
+        5 &	Interlock and Status Return \\
+        6 &	Laser Diode Voltage (-) \\
+        7 &	Laser Diode Cathode \\
+        8 &	Laser Diode Anode \\
+        9 &	Laser Diode Voltage (+)
+    \end{tabular}
+    \caption{Elenco delle funzioni dei singoli pin del Laser Diode Connector}
+    \label{tab:pinfunction}
+\end{table}
+
+Infine, i fili etichettati con il numero 9 (l'anodo) e 6 (il catodo) sono stati saldati rispettivamente al centrale (positivo) e alla fascia esterna (negativo) del cavo bnc.
+
+Per eseguire il collegamento è stata fatta una saldatura fredda: dato che i fili e i pin sono di materiale diverso, sono stati bagnati di stagno prima di essere saldati insieme, in modo tale da creare un sistema che condividesse uno stesso reticolo cristallino e quindi si comportasse allo stesso modo soggetto ad una variazione di temperatura. Infine, le saldature eseguite sul cavo bnc sono state ricoperte da un materiale termorestringente, successivamente riscaldato per mezzo di una HEAT GUN. 
+%riscrivo tutto meglio (giusto per avere un'idea)
+\subsection{Materiale utile}
+\href{https://www.thorlabs.com/newgrouppage9.cfm?objectgroup_id=1832}{Tutorial diodo laser}\\
+\href{https://www.thorlabs.com/newgrouppage9.cfm?objectgroup_id=285}{Fotodiodi}\\
+
+\end{section}
 \end{document}
