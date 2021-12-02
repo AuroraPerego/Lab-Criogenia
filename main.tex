@@ -39,9 +39,9 @@ Formule utili:
     1 \text{ dB}_\text{m}=10 \log_{10}\left(P\left[\text{mW}\right]\right)
 \end{equation}
 
-\begin{equation} \label{energia}
+\begin{equation*}
     \text{Energia sorgente} [\text{J}] = P[\text{W}]\cdot t[\text{s}]
-\end{equation}
+\end{equation*}
 
 \begin{equation} \label{fotoni}
     \text{Numero fotoni}=\frac{\text{Energia sorgente}}{h\nu}
@@ -49,11 +49,11 @@ Formule utili:
 
 \noindent In elettrodinamica classica il valore di aspettazione sul vuoto di $E^2$ è $\bar{n} \frac{\hbar c}{\lambda}$, mentre in QED è $\frac{\hbar c}{\lambda^4}$.
 Per questo motivo per apprezzare gli effetti quantistici dobbiamo avere che $\bar{n}\ll\frac{1}{\lambda^3}$. \\
-\noindent Il laser utilizzato ha una lunghezza d'onda di $1454.4$nm ($\nu = 2.06 \cdot 10^{14}$Hz) e una potenza di $1.5$mW. Con questi dati calcoliamo il numero di fotoni emessi dal laser in un secondo tramite l'equazione \eqref{fotoni}:
+\noindent Il laser utilizzato ha una lunghezza d'onda di $1454.4$nm ($\nu = 2.06 \cdot 10^{14}$Hz) e una potenza di $1.5$mW. Con questi dati calcoliamo il numero di fotoni emessi dal laser in un secondo tramite l'Eq \eqref{fotoni}:
 \begin{equation*} 
     \text{Numero fotoni}=\frac{1.5\cdot10^{-3}\text{W}\cdot1\text{s}}{6.626 \cdot 10^{-34} \text{J s} \cdot 2.06 \cdot 10^{14}\text{Hz}} = 1.1\cdot 10^{16}
 \end{equation*}
-e i decibel-milliwatt dellla sorgente con l'eq. \ref{dB}:
+e i decibel-milliwatt della sorgente con l'Eq. \eqref{dB}:
 \begin{equation*}
     1 \text{ dB}_\text{m}=10\log_{10}\left(P\left[1.5 \text{mW}\right]\right)=1.76
 \end{equation*}
@@ -75,10 +75,10 @@ L'attenuazione massima a disposizione è di $156$ e corrisponde a circa $3$ foto
 
 \begin{section}{23 Novembre 2021}
 \subsection{Cose fatte a lezione}
-E' stato preparato il cavo che collegherà il diodo al tec. Per farlo, sono stati utilizzati nove fili di materiale conduttore, che sono stati saldati alla testa della "presa" che andrà poi a inserirsi nell'apparecchio contenente il diodo (usiamo l'ingresso LD connector e non il TEC). I fili sono stati poi etichettati seguendo lo schema in figura \ref{fig:pin}. In tabella \ref{tab:pinfunction} sono riportate le funzioni di ognuno dei pin. 
+È stato preparato il cavo che collegherà il diodo al TEC. Per farlo, sono stati utilizzati nove fili di materiale conduttore, che sono stati saldati alla testa della "presa" che andrà poi a inserirsi nell'apparecchio contenente il diodo (usiamo l'ingresso LD connector e non il TEC). I fili sono stati poi etichettati seguendo lo schema in Figura \ref{fig:pin}. In Tabella \ref{tab:pinfunction} sono riportate le funzioni di ognuno dei pin. 
 \begin{figure}[h]
     \centering
-    \includegraphics[scale=0.3]{pin_scheme.png}
+    \includegraphics[scale=0.3]{images/pin_scheme.png}
     \caption{Schema della numerazione dei pin del Laser Diode Connector}
     \label{fig:pin}
 \end{figure}
@@ -102,13 +102,14 @@ E' stato preparato il cavo che collegherà il diodo al tec. Per farlo, sono stat
     \label{tab:pinfunction}
 \end{table}
 
-Infine, i fili etichettati con il numero 9 (l'anodo) e 6 (il catodo) sono stati saldati rispettivamente al centrale (positivo) e alla fascia esterna (negativo) del cavo bnc.
+\noindent Infine, i fili etichettati con il numero 9 (l'anodo) e 6 (il catodo) sono stati saldati rispettivamente al centrale (positivo) e alla fascia esterna (negativo) del cavo BNC.
 
-Per eseguire il collegamento è stata fatta una saldatura fredda: dato che i fili e i pin sono di materiale diverso, sono stati bagnati di stagno prima di essere saldati insieme, in modo tale da creare un sistema che condividesse uno stesso reticolo cristallino e quindi si comportasse allo stesso modo soggetto ad una variazione di temperatura. Infine, le saldature eseguite sul cavo bnc sono state ricoperte da un materiale termorestringente, successivamente riscaldato per mezzo di una HEAT GUN. 
-%riscrivo tutto meglio (giusto per avere un'idea)
+\noindent Per eseguire il collegamento è stata fatta una saldatura fredda: dato che i fili e i pin sono di materiale diverso, sono stati bagnati di stagno prima di essere saldati insieme, in modo tale da creare un sistema che condividesse uno stesso reticolo cristallino e quindi si comportasse allo stesso modo soggetto ad una variazione di temperatura. Infine, le saldature eseguite sul cavo BNC sono state ricoperte da un materiale termorestringente, successivamente riscaldato per mezzo di una HEAT GUN. 
+
+\noindent Durante la fase di collaudo, sono stati testati i vari collegamenti attraverso un generatore di segnale e  sono stati misurati tramite un tester i segnali in vari punti. Il collegamento realizzato con saldature dal generatore al mount del diodo fornisce un segnale, tuttavia il mount con diodo non sembra rispondere a nessuna tensione che viene fornita, nemmeno a quella massima supportata dal dispositivo. Una delle ipotesi di non funzionamento riguarda la configurazione realizzata nel collegamento del diodo al mount, un'altra idea è che il diodo sia già rotto, nonostante sia stato utilizzato un bracciale antistatico durante la fase di collegamento. Si attende una risposta da parte di Faverzani.
 \subsection{Materiale utile}
 \href{https://www.thorlabs.com/newgrouppage9.cfm?objectgroup_id=1832}{Tutorial diodo laser}\\
-\href{https://www.thorlabs.com/newgrouppage9.cfm?objectgroup_id=285}{Fotodiodi}\\
-
+\href{https://www.thorlabs.com/newgrouppage9.cfm?objectgroup_id=285}{Fotodiodi}
 \end{section}
+
 \end{document}
