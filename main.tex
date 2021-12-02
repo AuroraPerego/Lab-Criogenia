@@ -73,7 +73,7 @@ Facciamo il calcolo per 10 fotoni al secondo:
 L'attenuazione necessaria è quindi $1.76-(-148.86) = 150.62$
 L'attenuazione massima a disposizione è di $156$ e corrisponde a circa $3$ fotoni.
 
-\begin{section}{23 Novembre 2021}
+\begin{section}{23 Novembre 2021 aka Heat Gun}
 \subsection{Cose fatte a lezione}
 È stato preparato il cavo che collegherà il diodo al TEC. Per farlo, sono stati utilizzati nove fili di materiale conduttore, che sono stati saldati alla testa della "presa" che andrà poi a inserirsi nell'apparecchio contenente il diodo (usiamo l'ingresso LD connector e non il TEC). I fili sono stati poi etichettati seguendo lo schema in Figura \ref{fig:pin}. In Tabella \ref{tab:pinfunction} sono riportate le funzioni di ognuno dei pin. 
 \begin{figure}[h]
@@ -107,9 +107,24 @@ L'attenuazione massima a disposizione è di $156$ e corrisponde a circa $3$ foto
 \noindent Per eseguire il collegamento è stata fatta una saldatura fredda: dato che i fili e i pin sono di materiale diverso, sono stati bagnati di stagno prima di essere saldati insieme, in modo tale da creare un sistema che condividesse uno stesso reticolo cristallino e quindi si comportasse allo stesso modo soggetto ad una variazione di temperatura. Infine, le saldature eseguite sul cavo BNC sono state ricoperte da un materiale termorestringente, successivamente riscaldato per mezzo di una HEAT GUN. 
 
 \noindent Durante la fase di collaudo, sono stati testati i vari collegamenti attraverso un generatore di segnale e  sono stati misurati tramite un tester i segnali in vari punti. Il collegamento realizzato con saldature dal generatore al mount del diodo fornisce un segnale, tuttavia il mount con diodo non sembra rispondere a nessuna tensione che viene fornita, nemmeno a quella massima supportata dal dispositivo. Una delle ipotesi di non funzionamento riguarda la configurazione realizzata nel collegamento del diodo al mount, un'altra idea è che il diodo sia già rotto, nonostante sia stato utilizzato un bracciale antistatico durante la fase di collegamento. Si attende una risposta da parte di Faverzani.
+
 \subsection{Materiale utile}
+Link per il diodo laser:
 \href{https://www.thorlabs.com/newgrouppage9.cfm?objectgroup_id=1832}{Tutorial diodo laser}\\
 \href{https://www.thorlabs.com/newgrouppage9.cfm?objectgroup_id=285}{Fotodiodi}
 \end{section}
 
+
+\begin{section}{2 Dicembre 2021 aka BNC banana}
+Il generatore di segnale inizialmente utilizzato (\textit{AFG310, Sony}) si aspetta in uscita una resistenza di $50~\Omega$, ma noi non sappiamo quale sia la resistenza vera del diodo laser. Decidiamo quindi di usare un generatore di tensione.
+Per fare ciò colleghiamo direttamente i pin LD (1) e GROUND (3) del diodo rispettivamente al + e al - del connettore bnc. Per saldare i pin del diodo evitando scariche elettrostatiche abbiamo per prima cosa creato un cortocircuito tra i 4 pin tramite un anello di ferro che è stato saldato ad ognuno dei pin. 
+Abbiamo supposto che la "bottom view" si riferisse alla vista tenendolo in mano e guardando i pin. Poichè in questo modo non c'è segnale proviamo a mettere il positivo sul pin opposto, ipotizzando che le istruzioni si riferiscono invece alla vista opposta.
+Neanche così funziona..
+
+Il motivo per cui ci colleghiamo direttamente ai pin del diodo laser è che uscendo dal connettore LD (cannon) si ha automaticamente un filtro passa basso (per costruzione, non possiamo farci nulla), invece uscendo dal modulatore di frequenze RF (SMA, quello dorato) c'è un filtro passa alto. La frequenza di taglio in entrambi i casi è 200kHz.
+%fare una delta e aggiungere un filtro passa alto per vedere come viene distorta
+
+Nel frattempo montaggio del rack per la scheda di acquisizione, collegamento alla tensione e al pc: legge le schede ma ci sono problemi nell'installazione di python con anaconda.
+\end{section}
 \end{document}
+
