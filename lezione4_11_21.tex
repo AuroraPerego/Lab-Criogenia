@@ -1,0 +1,470 @@
+\documentclass{article}
+
+\usepackage[paper = a4paper, margin = 1in]{geometry}
+\usepackage[italian]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{circuitikz}
+\usepackage{amsmath}
+\usepackage{bbold}
+\usepackage{tikz}
+\usepackage{amssymb}
+\usepackage{caption}
+\usepackage{subcaption}
+\usetikzlibrary{automata, arrows.meta, positioning}
+
+\title{Lezione teorica del laboratorio di criogenia}
+\author{Aurora Perego}
+\date{4 Novembre 2021}
+
+\begin{document}
+
+\maketitle
+
+\section{Linea di trasmissione}
+Noi facciamo l'approssimazione di componenti puntiformi per condensatori, induttori \ldots 
+va bene se la lunghezza d'onda corrispondente alla frequenza a cui lavoro è più grande degli elementi. 
+In questo caso si parla di \textbf{elementi concentrati} (clamped elements).
+Noi invece lavoriamo a \textbf{elementi distribuiti}, cioè in una situazione in cui la lunghezza d'onda è minore delle dimensioni dei componenti.
+
+Linea di trasmissione: necessaria per trasportare il segnale a distanze maggiori di $\lambda$, è composta di due elementi (per esempio conduttore e maglia esterna nel cavo coassiale).
+In Fig.\ref{fig:lineatrasmissione} è riportato lo schema di una linea di trasmissione di lunghezza $\Delta z$.
+
+\begin{figure}[ht]
+    \centering
+    \begin{circuitikz}[american voltages]
+        \draw
+        (0,0) to [short, *-] (7,0)
+        to [C, l_=$C \Delta z$] (7,3) 
+        to [short] (5,3) 
+        (7,0) to [short] (9,0)
+        (0,0) to [open, v^>=$\Delta V(z)$] (0,3) 
+        to [short, *-,i=$i(z)$] (1,3) 
+        to [R, l=$R \Delta z$] (3,3)
+        to [L, l=$L \Delta z$] (6,3)
+        to [R, l_=$\frac{1}{G} \Delta z$] (6,0)
+        (7,3) to [short, i=$i(z+\Delta z)$] (10,3) 
+        (10,0) to [open, v^>=$\Delta V(z+\Delta z)$] (10,3) 
+        (7,0) to[short,-*] (10,0)
+        (10,3) to[short,-*] (10,3);
+        \draw[Bar-Bar] (0,-1) -- (10,-1) node[midway,sloped,above] {$\Delta z$};
+    \end{circuitikz}
+    \caption{Schema di una linea di trasmissione di lunghezza $\Delta z$}
+    \label{fig:lineatrasmissione}
+\end{figure}
+
+Ricaviamo ora la prima equazione dei telegrafisti.
+\begin{equation*}
+    V(z+\Delta z,t) - V(z,t) = - R i (z,t) \Delta z - L \frac{\partial i (z,t)}{\partial t} \Delta z
+\end{equation*}
+Dividiamo per $\Delta z$ e facciamo il limite per $z\rightarrow 0$.
+\begin{align*}
+    \lim_{\Delta z \to 0} \frac{V(z+\Delta z,t) - V(z,t)}{\Delta z} &= \frac{- R i (z,t) \Delta z - L \frac{\partial i (z,t)}{\partial t} \Delta z}{\Delta z} \\
+                                                                &=- R i (z,t) - L \frac{\partial i (z,t)}{\partial t}
+\end{align*}
+\begin{equation}\label{1eqTel}
+    \frac{\partial V (z,t)}{\partial z} =  - R i (z,t) - L \frac{\partial i (z,t)}{\partial t}
+\end{equation}
+
+Partendo dalla corrente invece che dalla tensione si ricava la seconda equazione dei telegrafisti.
+\begin{equation*}
+    i(z+\Delta z,t) - i(z,t) = - G V (z+\Delta z,t) \Delta z - C \frac{\partial V (z+\Delta z,t)}{\partial t} \Delta z
+\end{equation*}
+\begin{align*}
+    \lim_{\Delta z \to 0} \frac{i(z+\Delta z,t) - i(z,t)}{\Delta z} &= \frac{- G V (z+\Delta z,t) \Delta z - C \frac{\partial V (z+\Delta z,t)}{\partial t} \Delta z}{\Delta z} \\
+                                                                &=- G V (z+\Delta z,t) - C \frac{\partial V (z+\Delta z,t)}{\partial t}
+\end{align*}
+\begin{equation}\label{2eqTel}
+    \frac{\partial i (z,t)}{\partial z} = - G V (z,t) - C \frac{\partial V (z,t)}{\partial t}
+\end{equation}
+
+Nel caso ideale la resistenza della linea di trasmissione è nulla (R=0) così come la dissipazione di corrente (G=0).
+In questa situazione se derivo l'eq.\ref{1eqTel} rispetto a z e l'eq.\ref{2eqTel} rispetto a t ottengo:
+\begin{align*}
+    \frac{\partial^2 V (z,t)}{\partial^2 z} &= - L \frac{\partial^2 i (z,t)}{\partial t \partial z}\\
+    \frac{\partial^2 i (z,t)}{\partial z \partial t} &= - C \frac{\partial^2 V (z,t)}{\partial^2 t}
+\end{align*}
+che posso uguagliare per ottenere l'equazione delle onde per la tensione.
+\begin{equation}
+    \frac{\partial^2 V (z,t)}{\partial^2 z} = L C \frac{\partial^2 V (z,t)}{\partial^2 t}
+\end{equation}
+Questa equazione descrive un'onda progressiva ($V_p$) e una regressiva ($V_r$) che si propagano con velocità $v = \frac{1}{\sqrt{LC}}$.
+Con un ragionamento analogo si ricava l'equazione d'onda per la corrente. 
+Di seguito sono riportate le soluzioni delle equazioni d'onda per V e i.
+\begin{align*}
+    V (z,t) &= f(z-vt) + g(z+vt)\\
+    i (z,t) &= \frac{1}{R_0}(f(z-vt) + g(z+vt))\\
+    & \textrm{con } R_0=\sqrt{\frac{L}{C}}
+\end{align*}
+$R_0$ è l'impedenza caratteristica di una linea di trasmissione, indica se è presente o meno una riflessione del segnale.
+
+Posso definire il coefficiente di trasmissione $\rho$ come:
+\begin{equation*}
+    \rho (z) = \frac{V_r}{V_p} = \frac{Z_L - Z_0}{Z_L + Z_0}
+\end{equation*}
+dove $Z_L$ è la resistenza di carico messa alla fine della linea di trasmissione.
+Alcuni casi particolari:
+\begin{itemize}
+    \item circuito aperto ($Z_L = \infty$)$\rightarrow \rho = 1$, 
+    c'è riflessione totale, l'onda torna indietro con lo stesso segno
+    \item circuito chiuso ($Z_L = 0$)$\rightarrow \rho = -1$, 
+    c'è riflessione totale, l'onda torna indietro con segno opposto
+    \item $Z_L = Z_0 \rightarrow \rho = 0$, non c'è riflessione
+\end{itemize}
+
+Una coppia di terminali è chiamata \textbf{porta} di una rete.
+
+\section{Matrice di scattering}
+Dato un elemento con n porte da ognuna delle quali entra una tensione $V^+$ ed esce una tensione $V^-$
+(schem in Fig.\ref{fig:nporte}), 
+possiamo definire la matrice di scattering nel modo seguente:
+
+\begin{equation*}
+    \begin{bmatrix} 
+        V^-_{1} \\
+        \vdots \\
+        V^-_{n}
+    \end{bmatrix} 
+    = 
+    \begin{bmatrix} 
+        S_{11} & \cdots & S_{1n} \\
+        \vdots & \ddots & \\
+        S_{n1} &        & S_{nn} 
+    \end{bmatrix}
+    \begin{bmatrix} 
+        V^+_{1} \\
+        \vdots \\
+        V^+_{n}
+    \end{bmatrix} 
+\end{equation*}
+\\
+Gli elementi della matrice di scattering $S_{ij}=\frac{V^-_{i}}{V^+_{j}}$ rappresentano il segnale che esce da i ed entra in j (funzione di trasferimento).
+Gli elementi $S_{ii}=\frac{V^-_{i}}{V^+_{i}}$ rappresentano il segnale riflesso all'ingresso dell'i-esima porta.
+
+\begin{figure}[htbp]
+    \centering   
+    \begin{tikzpicture}[]
+    %\filldraw[color=red!60, fill=red!5, very thick](-1,0) circle (1.5);
+    
+    %Nodes
+    \node (mixer) [state, minimum size=2cm] {};
+    \node (q2) [state, below right = of mixer] {$2$};
+    \node (q1) [state, above = of mixer] {$1$};
+    \node (q3) [state, below left = of mixer] {$n$};
+    \node[] at (0,-2) {\textbf{$\cdots$}};
+    \draw [stealth-stealth, thick]
+        (mixer) edge node {}   (q1)
+        (mixer) edge node {}   (q1)
+        (mixer) edge node {}   (q2)
+        (mixer) edge node {}   (q3);
+    \draw[-stealth](0.5,1) -- (0.5,2) node[midway,sloped,right, rotate=270] {$V^-$};
+    \draw[stealth-](-0.5,1) -- (-0.5,2) node[midway,sloped,left, rotate=270] {$V^+$};
+    \end{tikzpicture}
+    \caption{Schema di un elemento a n porte. Data la porta i il segnale in uscita è $V^-_{i}$, quello in ingresso è $V^+_{j}$}
+    \label{fig:nporte}
+\end{figure}
+
+\subsection{Rete a tre porte}
+Si può dimosstrare che un sistema a tre porte come quello di Fig.\ref{fig:circolatore} non può essere contemporaneamente:
+\begin{itemize}
+    \item lossless, cioè non dissipa potenza $\Rightarrow S S^{\dagger} = \mathbb{1}$
+    \item reciproco $\Rightarrow S_{ij}=S_{ji}$
+    \item senza riflessioni, cioè ha il giusto adattamento a tutti gli ingressi $\Rightarrow S_{ii}=0$
+\end{itemize}
+
+Di seguito alcuni esempi.
+Il \textbf{circolatore} è uno strumento che rinuncia alla reciprocità.
+La matrice di scattering è 
+\begin{equation*}
+    \begin{bmatrix} 
+        0 & 0 & 1 \\
+        1 & 0 & 0 \\
+        0 & 1 & 0
+    \end{bmatrix} 
+\end{equation*}
+per un circolatore in cui il segnale si muove in senso orario, e
+\begin{equation*}
+    \begin{bmatrix} 
+        0 & 1 & 0 \\
+        0 & 0 & 1 \\
+        1 & 0 & 0 
+    \end{bmatrix} 
+\end{equation*}
+per un circolatore in cui il segnale si muove in senso antiorario.
+Un esempio di utilizzo del circolatore è come \textit{isolatore} come si può vedere in Fig.\ref{fig:isolatore}, per evitare di avere segnale riflesso dallo strumento nell'alimentazione.
+L'alimentazione è collegata alla prima porta, lo strumento alla seconda e alla terza c'è un tappo da $50 \Omega$ e una messa a massa che impedisce al segnale di tornare alla prima porta. 
+
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}[] 
+        %Nodes
+        \node (mixer) [state, minimum size=2cm] {};
+        \node (q2) [state, below right = of mixer] {$2$};
+        \node (q1) [state, above = of mixer] {$1$};
+        \node (q3) [state, below left = of mixer] {$3$};
+        \draw [-, thick]
+            (mixer) edge node {}   (q1)
+            (mixer) edge node {}   (q1)
+            (mixer) edge node {}   (q2)
+            (mixer) edge node {}   (q3);
+        \path [-stealth, thick,text =red]
+        (0,1) edge [bend left] node [] {} (0.707,-0.707)
+        (0.707,-0.707) edge [bend left] node[] {} (-0.707,-0.707)
+        (-0.707,-0.707) edge [bend left] node[] {}  (0,1);
+    \end{tikzpicture} 
+    \caption{Schema di un circolatore} 
+    \label{fig:circolatore}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}[]
+        %Nodes
+        \node (mixer) [state, minimum size=2cm] {};
+        \node (q2) [state, rectangle, below right = of mixer] {$s$};
+        \node (q1) [state, above = of mixer] {$\thicksim$};
+        \node (q3) [state, below left = of mixer] {$50 \Omega$};
+        \draw [-, thick]
+            (mixer) edge node {}   (q1)
+            (mixer) edge node {}   (q1)
+            (mixer) edge node {}   (q2)
+            (mixer) edge node {}   (q3);
+        \path [-stealth, thick,text =red]
+        (0,1) edge [bend left] node [] {} (0.707,-0.707)
+        (0.707,-0.707) edge [bend left] node[] {} (-0.707,-0.707);
+        \draw [-, thick]
+        (-2.1,-2.5) edge node {} (-2.1,-3.5)
+        (-2.6,-3) edge node {} (-1.6,-3)
+        (-2.4,-3.25) edge node {} (-1.8,-3.25)
+        (-2.2,-3.5) edge node {} (-2,-3.5);
+    \end{tikzpicture}
+    \caption{Schema di un circolatore ad utilizzo di isolatore} 
+    \label{fig:isolatore}
+\end{figure}
+
+
+Un altro esempio è lo \textbf{splitter} che divide il segnale in due e rinucia all'essere lossless.
+\begin{equation*}
+    \frac{1}{2}
+    \begin{bmatrix} 
+        0 & 1 & 1 \\
+        1 & 0 & 1 \\
+        1 & 1 & 0 
+    \end{bmatrix} 
+\end{equation*}
+
+Un ulteriore esempio è il \textbf{mixer} che non è reciproco e fa conversione in frequenza di segnali.
+Il mixer è utile quando si usano frequenze dell'ordine del GHz che sono difficili sia da generare che da misurare.
+ha due ingressi ed una uscita e può fare up-conversion o down-conversion.
+
+\begin{figure}[htbp]
+    \centering
+    \begin{subfigure}{0.4\textwidth}   
+        \centering
+        \begin{tikzpicture}[]
+            %Nodes
+            \node (mixer) [state, minimum size=2cm] {};
+            \node (out) [state, right = of mixer, label=below:{$f_{LO} \pm f_{IF}$}] {$f_{RF}$};
+            \node (q1) [state, left = of mixer, label=below:{$f_{LO}$}] {$\thicksim$};
+            \node (q2) [state, below = of mixer, label=right:{$f_{IF}$}] {$\thicksim$};
+            \draw [->, thick]
+                (q1) edge node {}   (mixer)
+                (q2) edge node {}   (mixer)
+                (mixer) edge node {}   (out);
+            \draw [-, thick]
+            (0.707,0.707) edge node {} (-0.707,-0.707)
+            (0.707,-0.707) edge node {} (-0.707,0.707);
+        \end{tikzpicture}
+        \caption{Schema di un mixer in up-conversion} 
+        \label{fig:upconversion}
+    \end{subfigure}
+    \begin{subfigure}{0.4\textwidth}
+        \centering
+        \begin{tikzpicture}[]
+            %Nodes
+            \draw [->, thick] (0,0) to (0,4);
+            \draw [->, thick] (0,0) to  (6,0);
+            \draw [-, thick]
+            (1,0) edge node {} (1,3)
+            (3,0) edge node {} (3,3)
+            (4,0) edge node {} (4,3)
+            (5,0) edge node {} (5,3);
+            \draw []
+            (1,0) edge node [label=below:{$f_{IF}$}] {} (1,0)
+            (4,0) edge node [label=below:{$f_{LO}$}] {} (4,0)
+            (3,3) edge node [label=above:{$f_{LO} - f_{IF}$}] {} (3,3)
+            (5,3) edge node [label=above:{$f_{LO} + f_{IF}$}] {} (5,3);
+        \end{tikzpicture}
+        \caption{Grafico delle frequenze in ingresso e uscita di un mixer in up-conversion} 
+    \end{subfigure}
+    \caption{Mixer in up-conversion}
+\end{figure}
+
+
+
+\begin{figure}[htbp]
+    \centering
+    \begin{subfigure}{0.4\textwidth}
+        \centering
+        \begin{tikzpicture}[]
+            %Nodes
+            \node (mixer) [state, minimum size=2cm] {};
+            \node (out) [state, right = of mixer, label=below:{$f_{RF} \pm f_{LO}$}] {$f_{IF}$};
+            \node (q1) [state, left = of mixer, label=below:{$f_{LO}$}] {$\thicksim$};
+            \node (q2) [state, below = of mixer, label=right:{$f_{RF}$}] {$\thicksim$};
+            \draw [->, thick]
+                (q1) edge node {}   (mixer)
+                (q2) edge node {}   (mixer)
+                (mixer) edge node {}   (out);
+            \draw [-, thick]
+            (0.707,0.707) edge node {} (-0.707,-0.707)
+            (0.707,-0.707) edge node {} (-0.707,0.707);
+        \end{tikzpicture}
+        \caption{Schema di un mixer in down-conversion} 
+        \label{fig:downconversion}
+    \end{subfigure}
+    \begin{subfigure}{0.4\textwidth}
+        \centering
+        \begin{tikzpicture}[]
+            %Nodes
+            \draw [->, thick] (0,0) to (0,4);
+            \draw [->, thick] (0,0) to  (6,0);
+            \draw [-, thick]
+            (1,0) edge node {} (1,3)
+            (3,0) edge node {} (3,3)
+            (2,0) edge node {} (2,3)
+            (5,0) edge node {} (5,3);
+            \draw []
+            (3,0) edge node [label=below:{$f_{RF}$}] {} (3,0)
+            (2,0) edge node [label=below:{$f_{LO}$}] {} (2,0)
+            (1,3) edge node [label=above:{$f_{LO} - f_{RF}$}] {} (1,3)
+            (5,3) edge node [label=above:{$f_{LO} + f_{RF}$}] {} (5,3);
+        \end{tikzpicture}
+        \caption{Grafico delle frequenze in ingresso e uscita di un mixer in down-conversion} 
+    \end{subfigure}
+    \caption{Mixer in down-conversion}
+\end{figure}
+
+Nel caso dell'up-conversion ai due ingressi vengono dati una frequenza portante dell'ordine dei GHz (local oscillator, $f_{LO}$) 
+e una frequenza intermedia dell'ordinde dei KHz $f_{IF}$ come si può vedere in Fig.\ref{fig:upconversion}.
+In output si hanno due frequenze $f_{RF} = f_{LO} \pm f_{IF}$. 
+Quello che è stato fatto è portare un segnale che era ad una bassa frequenza (banda base) ad una frequenza elevata.
+Il mixer fa il prodotto tra i segnali in ingresso:
+\begin{align*}
+    V_{LO} = A_1 \cos(\omega_{LO}t)\\
+    V_{IF} = A_2 \cos(\omega_{IF}t)\\
+    V_{RF} &= k \cos(\omega_{LO}t) \cos(\omega_{IF}t) \\
+           &= \frac{k}{2} (\cos((\omega_{LO}+\omega_{IF})t) + \cos((\omega_{LO}-\omega_{IF})t) )
+\end{align*}
+
+Nel caso della down-conversion invece abbasso la frequenza sottraendo dal segnale la frequenza portante.
+In input ho $f_{RF}$ e $f_{LO}$, in output ottengo $f_{IF} = f_{RF} \pm f_{LO}$, come riportato in Fig.\ref{fig:downconversion}. 
+La frequenza che mi interessa è la più piccola delle due e la ottengo applicando un filtro passa basso.
+\begin{align*}
+    V_{LO} = A_1 \cos(\omega_{LO}t)\\
+    V_{RF} = A_2 \cos(\omega_{RF}t)\\
+    V_{IF} &= k \cos(\omega_{LO}t) \cos(\omega_{RF}t) \\
+           &= \frac{k}{2} (\cos((\omega_{RF}+\omega_{LO})t) + \cos((\omega_{RF}-\omega_{LO})t) )\\
+           &\Downarrow \textrm{Filtro passa basso}\\
+           &=A \cos((\omega_{RF}-\omega_{LO})t)
+\end{align*}
+
+Un altro tipo di mixer è il \textbf{mixer IQ} che è dato dall'unione di due mixer, I (segnale in fase) e Q (segnale in quadratura di fase), come riportato in Fig.\ref{fig:mixerIQ}.
+In ingresso vengono date $V_{RF}$ e $V_{LO}$ ad entrambi i mixer, ma il segnale che arriva dal local oscillator prima di arrivare a Q viene shiftato di 90 gradi.
+\\
+Mixer I:
+\begin{align*}
+    V_{LO} &\propto \cos(\omega t)\\
+    V_{RF} &\propto \cos(\omega t + \phi_0)\\
+    V_{IF} &\propto \cos(\phi_0) + \cos(2 \omega t + \phi_0) \\
+           &\Downarrow \textrm{Filtro passa basso}\\
+           &\propto \cos(\phi_0)
+\end{align*}
+\\
+Mixer Q:
+\begin{align*}
+    V_{LO} &\propto \cos(\omega t + \frac{\pi}{2})\\
+    V_{RF} &\propto \cos(\omega t + \phi_0)\\
+    V_{IF} &\propto \cos(\phi_0 - \frac{\pi}{2}) + \cos(2 \omega t + \phi_0 + \frac{\pi}{2}) \\
+           &\Downarrow \textrm{Filtro passa basso}\\
+           &\propto \sin(\phi_0)
+\end{align*}
+
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}[]
+        %Nodes
+        \node (q1) [state] {};
+        \node (q2) [state, below = of q1] {};
+        \node (phase) [state] at (-1.5,-1.9) {$\phi_0$};
+        \draw [-, thick]
+            (q1) edge node {}   (1.5,0)
+            (q2) edge node {}   (1.5,-1.9)
+            (q1) edge node {}   (-1.5,0)
+            (q2) edge node {}   (phase)
+            (-0.3,0.3) edge node {} (0.3,-0.3)
+            (0.3,0.3) edge node {} (-0.3,-0.3)
+            (-0.3,-1.6) edge node {} (0.3,-2.2)
+            (0.3,-1.6) edge node {} (-0.3,-2.2)
+            (1.5,0) edge node {} (1.5,-1.9)
+            (-1.5,0) edge node {} (phase)
+            (1.5, -0.95) edge node {} (2.5, -0.95)
+            (-1.5, -0.95) edge node {} (-2.5, -0.95)
+            (2.5, -0.95) edge node [label=right:{$f_{RF}$}] {} (2.5, -0.95)
+            (-2.5, -0.95) edge node [label=left:{$f_{LO}$}] {} (-2.5, -0.95)
+            (0,0.3) edge node [label=above:{$I$}] {} (0,0.3)
+            (0,-2.2) edge node [label=below:{$Q$}] {} (0,-2.2);
+    \end{tikzpicture}
+    \caption{Schema di un mixer IQ}
+    \label{fig:mixerIQ}
+\end{figure}
+
+In questo modo ho ricavato seno e coseno di $\phi_0$ e posso fare una rappresentazione IQ del segnale.
+Nel piano IQ (I sulle ascisse, Q sulle ordinate) il segnale è un vettore di ampiezza data dalla lunghezza del vettore e con fase pari all'angolo del vettore con l'orizzontale.
+Un esempio è riportato in Fig.\ref{fig:rapprIQ}.
+
+Se le frequenze LO e RF fossero diverse avrei il fenomeno dei battimenti e sul piano IQ avrei un cerchio.
+\begin{figure}
+    \centering
+    \begin{tikzpicture}[]
+        %Nodes
+        \draw [->, thick] (0,0) to (0,3);
+        \draw [->, thick] (0,0) to  (3,0);
+        \draw [-latex] (0,0) to (2,2);
+        \draw [] (1,0) to [out=90,in=315]  (0.707,0.707);
+        \draw [] (0,3) edge node [label=left:{$Q$}] {} (0,3);
+        \draw [] (3,0) edge node [label=below:{$I$}] {} (3,0);
+        \draw [] (0.8,0.5) edge node [label=right:{$\phi_0$}] {} (0.8,0.5);
+    \end{tikzpicture}
+    \caption{Rappresentazione IQ del segnale}\
+    \label{fig:rapprIQ}
+\end{figure}
+
+\section{Risonatori superconduttivi}
+I risonatori superconduttivi possono essere realizzati con circuiti LC o con linee di trasmissione di una lunghezza tale da avere risonanza se terminata in modo opportuno.
+Una linea di trasmissione cortocircuitata agli estremi dà come prima armonica un'onda di lunghezza d'onda uguale al doppio della lunghezza della linea di trasmissione, 
+se fisso solo un estremo e l'altro lo lascio libero la lunghezza d'onda della prima armonica sarà 4 volte la lunghezza della linea di trasmissione.
+\subsection{Rivelatori MKIDs}
+Gli MKIDs sono circuiti LC con una capacità fissata dalle proprietà geometriche del circuito e una induttanza che dipende sia dalla geometria del sistema, che è fissata, che dalle proprietà del superconduttore, che variano.
+Se metto una corrente continua in un superconduttore ho delle coppie di Cooper che scorrono senza resistenza.
+Se invece applico una corrente alternata la situazione è diversa poiché le coppie di Cooper hanno una massa e quindi un'energia cinetica.
+Quando cambia il segno della corrente cambia il trasferimento di energia cinetica, quindi cambia segno anche la velocità delle coppie, ma a causa della massa delle coppie di Cooper la forzante ha un ritardo. 
+Questo fenomeno ha l'effetto di un'induttanza ed è chiamato induttanza cinetica. 
+Il segnale mi dice quante coppie di Cooper ho e se mando un fotone nell'IR il numero di coppie prodotto è proporzionale all'energia del fotone.
+
+\section{Unità di misura}
+Le grandezze sono in scala logaritmica. 
+Ci sono due scale: una per guadagni e attenuazioni in decibel (dB) e una per le potenze in gioco in decibel milliwatt (dBm).
+Guadagno / attenuazione: 
+\begin{equation}
+    G = 10 \log_{10}\left(\frac{P_{out}}{P_{in}}\right) = 20 \log_{10}\left(\frac{V_{out}}{V_{in}}\right)
+\end{equation}
+Potenza:
+\begin{align*}
+    1 dBm = 10 \log_{10} P[mW]\\
+    P[mW] = 10^{\frac{dBm}{10}}
+\end{align*}
+
+\section{Bibliografia}
+Pozar, Microwave engineering
+
+\end{document}
