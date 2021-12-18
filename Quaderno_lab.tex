@@ -73,7 +73,7 @@ Facciamo il calcolo per 10 fotoni al secondo:
 L'attenuazione necessaria è quindi $1.76-(-148.86) = 150.62$
 L'attenuazione massima a disposizione è di $156$ e corrisponde a circa $3$ fotoni.
 
-\begin{section}{23 Novembre 2021 aka Heat Gun}
+\section{23 Novembre 2021 aka Heat Gun}
 \subsection{Cose fatte a lezione}
 È stato preparato il cavo che collegherà il diodo al TEC. Per farlo, sono stati utilizzati nove fili di materiale conduttore, che sono stati saldati alla testa della "presa" che andrà poi a inserirsi nell'apparecchio contenente il diodo (usiamo l'ingresso LD connector e non il TEC). I fili sono stati poi etichettati seguendo lo schema in Figura \ref{fig:pin}. In Tabella \ref{tab:pinfunction} sono riportate le funzioni di ognuno dei pin. 
 \begin{figure}[h]
@@ -112,10 +112,9 @@ L'attenuazione massima a disposizione è di $156$ e corrisponde a circa $3$ foto
 Link per il diodo laser:
 \href{https://www.thorlabs.com/newgrouppage9.cfm?objectgroup_id=1832}{Tutorial diodo laser}\\
 \href{https://www.thorlabs.com/newgrouppage9.cfm?objectgroup_id=285}{Fotodiodi}
-\end{section}
 
 
-\begin{section}{2 Dicembre 2021 aka BNC banana}
+\section{2 Dicembre 2021 aka BNC banana}
 Il generatore di segnale inizialmente utilizzato (\textit{AFG310, Sony}) si aspetta in uscita una resistenza di $50~\Omega$, ma noi non sappiamo quale sia la resistenza vera del diodo laser. Decidiamo quindi di usare un generatore di tensione.
 Per fare ciò colleghiamo direttamente i pin LD (1) e GROUND (3) del diodo rispettivamente al + e al - del connettore bnc. Per saldare i pin del diodo evitando scariche elettrostatiche abbiamo per prima cosa creato un cortocircuito tra i 4 pin tramite un anello di ferro che è stato saldato ad ognuno dei pin. 
 Abbiamo supposto che la "bottom view" si riferisse alla vista tenendolo in mano e guardando i pin. Poichè in questo modo non c'è segnale proviamo a mettere il positivo sul pin opposto, ipotizzando che le istruzioni si riferiscono invece alla vista opposta.
@@ -127,6 +126,20 @@ Il motivo per cui ci colleghiamo direttamente ai pin del diodo laser è che usce
 \textbf{Problema risolto:} il diodo funziona con la polarizzazione inversa rispetto a quella che pensavamo,
 
 Nel frattempo montaggio del rack per la scheda di acquisizione, collegamento alla tensione e al pc: legge le schede ma ci sono problemi nell'installazione di python con anaconda.
-\end{section}
+
+
+\section{9 Dicembre 2021 aka daqenv}
+Abbiamo fatto saldature per il circuito (nothing relevant).
+Abbiamo creato l'ambiente daqenv all'interno del quale abbiamo installato tutte le librerie necessarie per comunicare con sintetizzatori e sistema di acquisizione.
+Shortcut: daqenv, andare nell'environment anche su VS Code.
+\section{15 Dicembre 2021}
+Realizzazione del circuito per il fotodiodo con l'aiuto di Gotti, guardare bene la scatola e farsi spiegare il circuito la prossima settimana.
+Abbiamo comunicato con successo con il sintetizzatore.
+Catena di generazione e lettura dei segnali:
+\begin{itemize}
+    \item Generazione dei segnali con il sintetizzatore (che controlliamo noi tramite programma)
+    \item Lungo giro nella scatola sopra il sintetizzatore in cui succedono varie cose prima di mandare il segnale al criostato
+    \item Il segnale entra nel criostato, MKIDs.., esce dal criostato e prima di uscire viene amplificato una volta a T criogenica, poi viene di nuovo amplificato a T ambiente e mandato al mixer \item In uscita abbiamo segnale I (in fase) e Q (in quadratura di fase) che viene mandato alla scheda di acquisizione (che controlliamo noi) e poi al pc.
+\end{itemize}
 \end{document}
 
