@@ -141,5 +141,13 @@ Catena di generazione e lettura dei segnali:
     \item Lungo giro nella scatola sopra il sintetizzatore in cui succedono varie cose prima di mandare il segnale al criostato
     \item Il segnale entra nel criostato, MKIDs.., esce dal criostato e prima di uscire viene amplificato una volta a T criogenica, poi viene di nuovo amplificato a T ambiente e mandato al mixer \item In uscita abbiamo segnale I (in fase) e Q (in quadratura di fase) che viene mandato alla scheda di acquisizione (che controlliamo noi) e poi al pc.
 \end{itemize}
+
+\section{22 Dicembre 2021 aka il diodo funziona :)}
+Abbiamo un circuito funzionante con fotodiodo, diodo laser, amplificatore ecc..
+Con un generatore di onde generiamo un'onda quadra e dividiamo il segnale in due, uno lo leggiamo sull'oscilloscopio, l'altro lo mandiamo al diodo laser. Dal diodo laser esce un segnale ottico che entra nella scatola fatta da Gotti dove c'è un circuito con un diodo (con la sua alimentazione, $5V$ \textit{if I'm not wrong}) e un amplificatore (con la sua alimentazione, $\pm 5V$). Dalla scatola esce il segnale che noi leggiamo sull'oscilloscopio.
+L'obiettivo di oggi è stato quello di ottenere un segnale in uscita dall'oscilloscopio che fosse di durata sui 100ns o meno, per avere un pacchetto di fotoni.
+Obiettivo raggiunto, Davide ha segnato le condizioni da avere per quanto riguarda tensione, frequenza ecc..
+Manca da aggiungere un secondo generatore di onde che faccia da trigger per generare un pacchetto ogni tanto, adesso la frequenza è troppo elevata.
+\textbf{Cercare info riguardo la statistica necessaria per avere abbastanza dati.}
 \end{document}
 
